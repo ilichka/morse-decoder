@@ -38,7 +38,35 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let letter;
+    let slovo='';
+    expr = expr.split('');
+    for (let j = 0; j < expr.length;) {
+        letter = expr.slice(j, j + 10);
+        for (let i = 0; i < letter.length; i++) {
+            if (letter[i] !== 0) {
+                letter = letter.join('');
+                letter = letter
+                    .replace(/\*/g, 'q')
+                    .replace(/11/g, '-')
+                    .replace(/10/g, '.')
+                    .replace(/00/g, ' ')
+                    .replace(/qqqqqqqqqq/g, ' space')
+                    .replace(/ +/g, ' ').trim();
+                break;
+            }
+        }
+        if (letter === 'space') {
+            slovo += ' ';
+        } else {
+            if (letter !== undefined) {
+                letter = MORSE_TABLE[letter];
+                slovo += letter;
+            }
+        }
+        j += 10;
+    }
+    return slovo;
 }
 
 module.exports = {
